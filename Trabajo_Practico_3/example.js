@@ -1,52 +1,83 @@
-// Material de ayuda para resolver la actividad practica.
+let tasks = [];
 
-// Funciones
-// las funciones en JavaScript son como pequeñas cajas que contienen un conjunto de instrucciones 
-// que pueden ser ejecutadas en cualquier momento.
-
-// Aquí, sumar es el nombre de la función. a y b son los parámetros que la función espera recibir, y return a + b es 
-function sumar(a, b) {
-    return a + b
+function listarMaterias() {
+    if (tasks.length === 0) {
+        alert('No hay materias disponibles.');
+    } else {
+        alert('Materias: ' + tasks.join(', '));
+    }
 }
 
-// lo que la función devuelve cuando es llamada. Entonces, si llamas a la función sumar(3, 5), devolverá 8, porque suma 3 y 5. 
-sumar(3, 5) // 8
-
-// Expresiones regulares
-
-// Expresion regular que valida que no contenga espacios en blanco al principio o al final ni que este vacio.
-const regex = /^\S+$/;
-
-// Se utiliza el metodo test y se le pasa como parametro la variable o texto a evaluar.
-// Si cumple con la expresion regular devolvera como resultado un booleano true, caso contrario false.
-regex.test('Matematicas') // true
-regex.test('   ') // false
-
-
-// Metodos de arrays
-let list = [];
-
-// push: Se utiliza para insertar un elemento en la ultima posicion del array.
-list.push(1); // [1]
-
-// unshift: Caso contrario al push, inserta un elemento pero esta vez en la primera posición.
-list.unshift(0); // [0, 1]
-
-// splice: Cambia el contenido de un array eliminando elementos existentes y/o agregando nuevos elementos.
-// En este caso lo utilizaremos para eliminar un item en x posicion.
-// Recibe como primer parametro el indice del elemento a eliminar, y como segundo parametro un 1
-// que significa el número de elementos que deseas eliminar a partir de ese índice (en este caso, solo uno)
-
-list.splice(0, 1) // [1]
-
-// Recorrer un array con for
-
-// Se declara la variable "i" y se incicializa en 0, esta variable se usara como un contador para recorrer el array.
-// La condicional "i < list.length" controla cuando el bucle debe detenerse.
-// Despues de cada iteracion del buble, incrementamos el valor de "i" con i++.
-
-for (let i = 0; i < list.length; i++) {
-
-    // Haciendo uso del contador "i", vamos recorriendo las posiciones del array.
-    console.log(list[i])
+function añadirMateria() {
+    let addTask = prompt('Ingrese la materia que quiera añadir:');
+    if (addTask) {
+        tasks.push(addTask.toUpperCase());
+        alert('Materia añadida!');
+    } else {
+        alert('No se añadió ninguna materia.');
+    }
 }
+
+function editarMateria() { 
+    let editTask = prompt('Ingrese la materia que quiera editar:');
+    if (editTask) {
+        let index = tasks.indexOf(editTask.toUpperCase());
+        if (index !== -1) {
+            let newTask = prompt('Ingrese el nuevo nombre para la materia:');
+            if (newTask) {
+                tasks[index] = newTask.toUpperCase();
+                alert('Materia editada!');
+            } else {
+                alert('No se editó la materia.');
+            }
+        } else {
+            alert('Error: Materia no encontrada.');
+        }
+    } else {
+        alert('Error: Información incompleta.');
+    }
+}
+
+function eliminarMateria() {
+    let deleteTask = prompt('Ingrese la materia que quiera eliminar:');
+    if (deleteTask) {
+        let index = tasks.indexOf(deleteTask.toUpperCase());
+        if (index !== -1) {
+            tasks.splice(index, 1);
+            alert('Materia eliminada!');
+        } else {
+            alert('Error: Materia no encontrada.');
+        }
+    } else {
+        alert('No se eliminó ninguna materia.');
+    }
+}
+
+function mostrarMenu() {
+    while (true) {
+        let actions = parseInt(prompt('Ingrese el número de la acción que quiera realizar:\n1-LISTAR MATERIAS\n2-AÑADIR MATERIA\n3-EDITAR MATERIA\n4-ELIMINAR MATERIA\n5-SALIR'));
+
+        switch (actions) {
+            case 1:
+                listarMaterias();
+                break;
+            case 2:
+                añadirMateria();
+                break;
+            case 3:
+                editarMateria();
+                break;
+            case 4:
+                eliminarMateria();
+                break;
+            case 5:
+                alert('Saliendo del programa.');
+                return;
+            default:
+                alert('Opción no válida. Por favor, intente de nuevo.');
+                break;
+        }
+    }
+}
+
+mostrarMenu();
