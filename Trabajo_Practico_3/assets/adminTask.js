@@ -1,7 +1,7 @@
 const regex = /^\S+$/;
 let tasks = [];
 
-function listTask(){
+function listarTareas(){
 
     if(tasks.length > 0){
         alert(tasks);
@@ -10,7 +10,7 @@ function listTask(){
     }
 }
 
-function addTask(){
+function agregarTarea(){
     
     let add = prompt('Ingrese una materia para añadir:');
     
@@ -22,13 +22,21 @@ function addTask(){
     }
 }
 
-function editTask(actual, nuevo){
 
-    actual = prompt('Ingrese la materia que quiera editar:');
-    nuevo = prompt('Ingrese el nuevo nombre:');
 
-    
-    
+function eliminarMateria() {
+    let deleteTask = prompt('Ingrese la materia que quiera eliminar:');
+    if (deleteTask) {
+        let index = tasks.indexOf(deleteTask.toUpperCase());
+        if (index !== -1) {
+            tasks.splice(index, 1);
+            alert('Materia eliminada!');
+        } else {
+            alert('Error: Materia no encontrada.');
+        }
+    } else {
+        alert('No se eliminó ninguna materia.');
+    }
 }
 
 function mostrarMenu(){
@@ -43,9 +51,11 @@ function mostrarMenu(){
                 addTask();
                 break;
             case 3:
-                editTask();
+                editarMateria();
                 break;
-            
+            case 4:
+                eliminarMateria();
+                break;
             default:
                 break;
         }
